@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block head %}
+<script src="/static/body.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<!-- {{data}} -->
+<div class="container-fluid" style="height:100%;border:0px solid black">
+    <div class="row" style="height:80%;border:0px solid green">
+            <div class="col-sm-2" style="border:0px solid blue">
+                <span></span>
+            </div>
+        <div class="col-sm-8" style="border:0px solid blue">
+            <form id="body_form" class="">
+                <h5>
+                    <div class="badge badge-primary">Default Body Geometry</div>
+                </h5>
+                <div class="">
+                    <label for="ft_length">Cleat to Heel Length</label>
+                    <input required type="number" class="form-control form-control-sm" id="ft_length"
+                           name="ft_length" placeholder='100' value={{data.data.ft_length}}>
+                </div>
+                <div class="">
+                    <label for="low_leglength">Ankle to Knee Length</label>
+                    <input required type="number" class="form-control form-control-sm" id="low_leglength"
+                           name="low_leglength" placeholder='440' value={{data.data.low_leglength}}>
+                </div>
+                <div class="">
+                    <label for="up_leglength">Knee to Hip Length</label>
+                    <input required type="number" class="form-control form-control-sm" id="up_leglength"
+                           name="up_leglength" placeholder='460' value={{data.data.up_leglength}}>
+                </div>
+                <div class="">
+                    <label for="torso_length">Hip to Shoulder Length</label>
+                    <input required type="number" class="form-control form-control-sm" id="torso_length"
+                           name="torso_length" placeholder='620' value={{data.data.torso_length}}>
+                </div>
+                <div class="">
+                    <label for="up_armlength">Shoulder to Elbow Length</label>
+                    <input required type="number" class="form-control form-control-sm" id="up_armlength"
+                           name="up_armlength" placeholder='350' value={{data.data.up_armlength}}>
+                </div>
+                <div class="">
+                    <label for="low_armlength">Elbow to Palm Length</label>
+                    <input required type="number" class="form-control form-control-sm" id="low_armlength"
+                           name="low_armlength" placeholder='350' value={{data.data.low_armlength}}>
+                </div>
+            </form>
+            <button type="submit" class="btn btn-primary" id="save">Save</button>
+            <input type="hidden" id="id" value={{data.data.id}}>
+        </div>
+        <div class="col-sm-2" id="adwords" style="border:0px solid blue">
+            <span></span>
+        </div>
+    </div>
+</div>
+{% endblock %}
