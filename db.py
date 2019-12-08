@@ -12,9 +12,9 @@ def init_app(app):
 
 
 def get_db():
-    # if g and "db" not in g:
-    #     g.db = PyMongo(current_app)
-    # return g.db
+    global db
+    if db is None:
+        db = PyMongo(current_app)
     return db
 
 def close_db(e=None):
@@ -35,8 +35,8 @@ def get_user_fit(user):
     resp = get_db().db.fit.find_one({"user": user})
     return resp
 
-def get_fit(user):
-    resp = get_db().db.fit.find_one({"user": user})
+def get_fit(id):
+    resp = get_db().db.fit.find_one({"id": id})
     return resp
 
 def update_fit(id, data):
