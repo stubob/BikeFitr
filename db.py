@@ -29,6 +29,7 @@ def get_user(id):
 
 def save_user(user):
     resp = get_db().db.user.insert_one(user)
+    user.pop('_id')
     return resp
 
 def get_user_fit(user):
@@ -45,6 +46,7 @@ def update_fit(id, data):
 
 def save_fit(data):
     resp = get_db().db.fit.insert_one(data)
+    data.pop('_id')
     return resp
 
 def get_bike(id):
@@ -57,6 +59,7 @@ def get_bikes(id):
 
 def create_bike(data):
     resp = get_db().db.bikes.insert_one(data)
+    data.pop('_id')
     return resp
 
 def update_bike(id, data):
