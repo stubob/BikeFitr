@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/calc.css">
+    <link rel="shortcut icon" href="/static/favicon.ico">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.12.2/paper-full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.min.js"></script>
+</head>
+<style>
+    html,body {
+  height: 100%;
+}
+canvas[resize] {
+    width: 100%;
+    height: 75%;
+}
+
+</style>
+<body>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <div class="navbar-brand">BikeFitr</div>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid" style="height:100%;border:0px solid black">
+    <form id="bike_form">
+        <div class="row h-80" style="height:80%;border:0px solid green">
+            <div class="col-sm-2" style="border:0px solid blue">
+                <div id="accordion">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>
+                                <div class="badge badge-primary" data-toggle="collapse" href="#collapseOne">Bike
+                                    Geometry
+                                </div>
+                            </h5>
+                            <div id="collapseOne" class="collapse show" data-parent="#accordion">
+                                <div class="">
+                                    <label class="control-label" for="stack">Stack</label>
+                                    <input required type="number" class="form-control form-control-sm" id="stack"
+                                           name="stack" placeholder='540' value='{{data.data.bike.stack}}'>
+                                </div>
+                                <div class="">
+                                    <label class="control-label" for="reach">Reach</label>
+                                    <input required type="number" class="form-control form-control-sm" id="reach"
+                                           name="reach" placeholder='380' value='{{data.data.bike.reach}}'>
+                                </div>
+                                <div class="">
+                                    <label class="control-label" for="st_length">Seat Tube Length</label>
+                                    <input required type="number" class="form-control form-control-sm" id="st_length"
+                                           name="st_length" placeholder='520' value='{{data.data.bike.st_length}}'>
+                                </div>
+                                <div class="">
+                                    <label class="control-label" for="st_angle">Seat Tube Angle</label>
+                                    <input required type="number" class="form-control form-control-sm" id="st_angle"
+                                           name="st_angle" placeholder='73.5' value='{{data.data.bike.st_angle}}'>
+                                </div>
+                                <div class="">
+                                    <label class="control-label" for="ht_length">Head Tube Length</label>
+                                    <input required type="number" class="form-control form-control-sm" id="ht_length"
+                                           name="ht_length" placeholder='140' value='{{data.data.bike.ht_length}}'>
+                                </div>
+                                <div class="">
+                                    <label class="control-label" for="ht_angle">Head Tube Angle</label>
+                                    <input required type="number" class="form-control form-control-sm" id="ht_angle"
+                                           name="ht_angle" placeholder='73' value='{{data.data.bike.ht_angle}}'>
+                                </div>
+                                <div class="">
+                                    <label class="control-label" for="ft_center">Front Center</label>
+                                    <input required type="number" class="form-control form-control-sm" id="ft_center"
+                                           name="ft_center" placeholder='600' value='{{data.data.bike.ft_center}}'>
+                                </div>
+                                <div class="">
+                                    <label class="control-label" for="wheelbase">Wheelbase</label>
+                                    <input required type="number" class="form-control form-control-sm" id="wheelbase"
+                                           name="wheelbase" placeholder='1000' value='{{data.data.bike.wheelbase}}'>
+                                </div>
+                                <div class="">
+                                    <label class="control-label" for="bb_drop">BB Drop</label>
+                                    <input required type="number" class="form-control form-control-sm" id="bb_drop"
+                                           name="bb_drop" placeholder='70' value='{{data.data.bike.bb_drop}}'>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>
+                                <div class="badge badge-primary" data-toggle="collapse" href="#collapseTwo">Fit
+                                    Geometry
+                                </div>
+                            </h5>
+                            <div id="collapseTwo" class="collapse" data-parent="#accordion">
+                                <div class="">
+                                    <label class="control-label" for="crank_length">Crank Arm Length</label>
+                                    <input required minlength="3" type="number" class="form-control form-control-sm"
+                                           name="crank_length" placeholder='170' id="crank_length"
+                                           value='{{data.data.bike.crank_length}}'>
+                                </div>
+                                <div class="">
+                                    <label class="control-label" for="crank_angle">Crank Arm Angle</label>
+                                    <input required type="number" class="form-control form-control-sm" id="crank_angle"
+                                           name="crank_angle" placeholder='0' value='{{data.data.bike.crank_angle}}'>
+                                </div>
+                                <div class="">
+                                    <label class="control-label" for="bb_rail">BB to Seat Rail</label>
+                                    <input required type="number" class="form-control form-control-sm" id="bb_rail"
+                                           name="bb_rail" placeholder='690' value='{{data.data.bike.bb_rail}}'>
+                                </div>
+                                <div class="">
+                                    <label class="control-label" for="saddle_offset">Saddle Offset</label>
+                                    <input required type="number" class="form-control form-control-sm"
+                                           id="saddle_offset"
+                                           name="saddle_offset" placeholder='0'
+                                           value='{{data.data.bike.saddle_offset}}'>
+                                </div>
+                                <div class="">
+                                    <label class="control-label" for="spacer_height">Spacer Height</label>
+                                    <input required type="number" class="form-control form-control-sm"
+                                           id="spacer_height"
+                                           name="spacer_height" placeholder='50'
+                                           value='{{data.data.bike.spacer_height}}'>
+                                </div>
+                                <div class="">
+                                    <label class="control-label" for="stem_length">Stem Length</label>
+                                    <input required type="number" class="form-control form-control-sm" id="stem_length"
+                                           name="stem_length" placeholder='110' value='{{data.data.bike.stem_length}}'>
+                                </div>
+                                <div class="">
+                                    <label class="control-label" for="stem_angle">Stem Angle</label>
+                                    <input required type="number" class="form-control form-control-sm" id="stem_angle"
+                                           name="stem_angle" placeholder='-17' value='{{data.data.bike.stem_angle}}'>
+                                </div>
+                                <div class="">
+                                    <label class="control-label" for="pad_stack">Pad Stack Height</label>
+                                    <input required type="number" class="form-control form-control-sm" id="pad_stack"
+                                           name="pad_stack" placeholder='50' value='{{data.data.bike.pad_stack}}'>
+                                </div>
+                                <div class="">
+                                    <label class="control-label" for="pad_offset">Pad Offset</label>
+                                    <input required type="number" class="form-control form-control-sm" id="pad_offset"
+                                           name="pad_offset" placeholder='-80' value='{{data.data.bike.pad_offset}}'>
+                                </div>
+                                <div class="">
+                                    <label class="control-label" for="ext_length">Extension Length</label>
+                                    <input required type="number" class="form-control form-control-sm" id="ext_length"
+                                           name="ext_length" placeholder='270' value='{{data.data.bike.ext_length}}'>
+                                </div>
+                                <div class="">
+                                    <label class="control-label" for="ext_angle">Extension Angle</label>
+                                    <input required type="number" class="form-control form-control-sm" id="ext_angle"
+                                           name="ext_angle" placeholder='10' value='{{data.data.bike.ext_angle}}'>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>
+                                <div class="badge badge-primary" data-toggle="collapse" href="#collapseThree">Body
+                                    Geometry
+                                </div>
+                            </h5>
+                            <div id="collapseThree" class="collapse" data-parent="#accordion">
+                                <div class="">
+                                    <label for="ft_length">Cleat to Heel Length</label>
+                                    <input required type="number" class="form-control form-control-sm" id="ft_length"
+                                           name="ft_length" placeholder='100' value={{data.data.fit.ft_length}}>
+                                </div>
+                                <div class="">
+                                    <label for="low_leglength">Ankle to Knee Length</label>
+                                    <input required type="number" class="form-control form-control-sm"
+                                           id="low_leglength"
+                                           name="low_leglength" placeholder='440' value={{data.data.fit.low_leglength}}>
+                                </div>
+                                <div class="">
+                                    <label for="up_leglength">Knee to Hip Length</label>
+                                    <input required type="number" class="form-control form-control-sm" id="up_leglength"
+                                           name="up_leglength" placeholder='460' value={{data.data.fit.up_leglength}}>
+                                </div>
+                                <div class="">
+                                    <label for="torso_length">Hip to Shoulder Length</label>
+                                    <input required type="number" class="form-control form-control-sm" id="torso_length"
+                                           name="torso_length" placeholder='620' value={{data.data.fit.torso_length}}>
+                                </div>
+                                <div class="">
+                                    <label for="up_armlength">Shoulder to Elbow Length</label>
+                                    <input required type="number" class="form-control form-control-sm" id="up_armlength"
+                                           name="up_armlength" placeholder='350' value={{data.data.fit.up_armlength}}>
+                                </div>
+                                <div class="">
+                                    <label for="low_armlength">Elbow to Palm Length</label>
+                                    <input required type="number" class="form-control form-control-sm"
+                                           id="low_armlength"
+                                           name="low_armlength" placeholder='350' value={{data.data.fit.low_armlength}}>
+                                </div>
+                                <input type="hidden" id="id" name="id" value={{data.id}}>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col" id="canvas_container" style="border:1px solid blue">
+                <canvas id='canvas' name="canvas" class="canvas" style="border:1px solid red" resize></canvas>
+                <div class="d-flex">
+                    <div class="flex-fill">
+                        <label for="name">Bike Name</label>
+                    </div>
+                    <div class="flex-fill">
+                        <input type="text" class="form-control" id="name" name="name" value='{{data.name}}'>
+                    </div>
+                    <div class="flex-fill">
+                        <label for="type">Type</label>
+                        <select name="type" id="type">
+                            <option value="tt" {% if data.type=='tt' %} selected="selected" {% endif %}>TT</option>
+                        </select>
+                    </div>
+                    <div class="flex-fill">
+                        {% if data.owner %}
+                        <button type="button" class="btn btn-primary" id="save">Save</button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2" id="adwords" style="border:0px solid blue">
+                <span></span>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.12.2/paper-full.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+    var canvas = document.getElementById('canvas');
+    // Create an empty project and a view for the canvas:
+    paper.setup(canvas);
+    paper.settings.listenEvents = false;
+    paper.view.onResize = function(event) {
+        center = new paper.Point(canvas.width / 2, canvas.height / 2)
+        paper.view.center = center
+        paper.view.translate(paper.view.center)
+    }
+    paper.project.currentStyle = {
+        strokeColor: 'black',
+        strokeWidth: 3
+    };
+    paper.view.scale(.3)
+    center = new paper.Point(canvas.width / 2, canvas.height / 2)
+    paper.view.center = center
+    paper.view.translate(paper.view.center)
+
+    new paper.Path.Circle(0, 0, 20)
+    new paper.Path.Circle(0, 0, 50)
+    new paper.Path.Circle(0, 0, 100)
+    new paper.Path.Circle(0, 0, 200)
+    new paper.Path.Circle(0, 0, 500)
+
+    paper.view.draw();
+
+})
+
+</script>
+</body>
+</html>

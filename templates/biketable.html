@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<!--{{ data }}-->
+
+<div class="container-fluid" style="height:100%;border:0px solid black">
+    <div class="row" style="height:80%;border:0px solid green">
+        <div class="col-sm-2" style="border:0px solid blue">
+            <span></span>
+        </div>
+        <div class="col-sm-8" style="border:0px solid blue">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Link</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for bike in data.bikes %}
+                    <tr>
+                        <td>{{bike.name}}</td>
+                        <td>{{bike.type}}</td>
+                        <td><a href="/geometry/{{bike.id}}">{{bike.id}}</a></td>
+                        <td><a href="/geometry/{{bike.id}}/delete"><span class="fa fa-trash" data-toggle="tooltip"
+                                                                         title="Delete {{bike.name}}"></span></a></td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-body">
+                <a href="/new" role="button" class="btn btn-primary" id="new">Create New Bike</a>
+                <a href="/body" role="button" class="btn btn-primary" id="body">Edit Body Geometry</a>
+            </div>
+        </div>
+        <div class="col-sm-2" id="adwords" style="border:0px solid blue">
+            <span></span>
+        </div>
+    </div>
+</div>
+{% endblock %}
