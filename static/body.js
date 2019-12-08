@@ -18,9 +18,9 @@ $(document).ready(function(){
          })
         .done(
             function(data, status){
-                var json = JSON.parse(data);
-                $('#id').val() = json.id;
-                alert("Data: " + data + "\nStatus: " + status);
+                $('#id').val(data.data.id);
+                alert("Fit data saved");
+                window.location.replace('/home');
             })
      });
 })

@@ -52,6 +52,7 @@ $(document).ready(function() {
                 window.location.replace(data.redirect);
             }else{
                 $('#id').val(data.id);
+                alert("Bike data saved");
             }
          })
      });
@@ -207,15 +208,14 @@ function drawRider() {
     ankle.style = pointStyle;
     var r = parseFloat($('#bb_rail').val());
     var stAngle = parseFloat($('#st_angle').val());
-    var postPoint = initPoint(r, 180 + stAngle, getVal('#saddle_offset'), -70);
+    var postPoint = initPoint(r, 180 + stAngle, getVal('#saddle_offset'), -80);
     var result = findTriangle(crankpointend, postPoint, parseFloat($('#low_leglength').val()), parseFloat($('#up_leglength').val()));
     $('#kangle').val(round(180 - result.midAngle));
     var kneePoint = result.midPoint;
     var knee = new paper.Path.Circle(kneePoint, 20);
     knee.style = pointStyle;
-    var hip = new paper.Path.Circle(postPoint, 30);
-    hip.strokeColor = 'blue';
-    hip.strokeWidth = 60;
+    var hip = new paper.Path.Circle(postPoint, 60);
+    hip.style = pointStyle;
 
     var kneeAngle = new paper.PointText(kneePoint.x + 50, kneePoint.y + 10);
     kneeAngle.content = (round(180 - result.midAngle)) + ' ' + String.fromCharCode(176);

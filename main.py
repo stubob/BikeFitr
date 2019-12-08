@@ -141,7 +141,7 @@ def callback():
     login_user(session_user)
 
     # Send user back to homepage
-    return redirect(url_for("index"))
+    return redirect(request.referrer)
 
 
 @app.route("/logout")
@@ -225,7 +225,7 @@ def delete_geometry_by_id(id):
 @app.route('/body',  methods=['GET'])
 @login_required
 def get_body():
-    fit = db.get_fit(current_user.email)
+    fit = db.get_user_fit(current_user.email)
     data = {'isLoggedIn': current_user.is_authenticated,
             'owner': True,
             'data': fit}
@@ -243,17 +243,13 @@ def save_body():
     req_data['user'] = user
     if req_data.get('id'):
         id = req_data['id']
-        fit = db.get_fit(id)
         db.update_fit(id, req_data)
-        fit = req_data
-        data['data'] = fit
+        data['data'] = req_data
     else:
         req_data['id'] = random_generator()
-        fit = req_data
-        resp = db.save_fit(fit)
-        data['data'] = fit
-    return render_template('body.html',
-                           data=data)
+        resp = db.save_fit(req_data)
+        data['data'] = req_data
+    return jsonify(data)
 
 
 def random_generator():
