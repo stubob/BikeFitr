@@ -49,6 +49,7 @@ $(document).ready(function() {
              })
          }).done(function(data, status){
             if(data.redirect){
+                alert("Bike created");
                 window.location.replace(data.redirect);
             }else{
                 $('#id').val(data.id);

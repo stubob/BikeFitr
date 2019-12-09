@@ -141,14 +141,14 @@ def callback():
     login_user(session_user)
 
     # Send user back to homepage
-    return redirect(request.referrer)
+    return redirect(url_for('home'))
 
 
 @app.route("/logout")
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for("index"))
+    return index()
 
 
 @app.route('/home')
@@ -165,19 +165,21 @@ def home():
 
 @app.route('/new', methods=['GET'])
 def new_geometry():
-    if current_user.is_authenticated:
-        fit = db.get_fit(current_user.email)
-    else:
-        fit = {}
     data = {
         'isLoggedIn': current_user.is_authenticated,
         'owner': True,
         'data': {
-            'user': "stewartj76@gmail.com",
-            'fit': fit,
             'bike': {}
         }
     }
+    if current_user.is_authenticated:
+        fit = db.get_user_fit(current_user.email)
+        user = current_user.email
+    else:
+        fit = {}
+        user = ''
+    data['data']['fit'] = fit
+    data['user'] = user
     return render_template('geometry.html',
                            data=data)
 
