@@ -22,6 +22,7 @@ import requests
 import db
 import user
 from user import User
+from flask_cors import CORS, cross_origin
 
 # Configuration
 GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", None)
@@ -32,6 +33,7 @@ GOOGLE_DISCOVERY_URL = (
 
 # Flask app setup
 app = Flask(__name__)
+CORS(app)
 app.config.from_object('config')
 app.secret_key = os.environ.get("SECRET_KEY") or os.urandom(24)
 
