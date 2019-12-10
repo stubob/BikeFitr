@@ -86,14 +86,17 @@ $(document).ready(function() {
         strokeColor: 'black',
         strokeWidth: 3
     };
-    paper.view.scale(.3)
     center = new paper.Point(canvas.width / 2, canvas.height / 2)
     paper.view.center = center
     paper.view.translate(paper.view.center.x, canvas.height + 200)
 
+    paper.view.scale(.3)
+
     if ($('#bike_form').valid()) {
         drawFrame();
         drawRider();
+    }else{
+        var raster = new paper.Raster({source: '/static/sample-lg-min.png', position: paper.view.center});
     }
     paper.view.draw();
 });

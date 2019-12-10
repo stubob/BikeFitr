@@ -205,7 +205,7 @@
                 </div>
             </div>
             <div class="col" id="canvas_container" style="height:100%;border:0px solid blue">
-                <canvas id='canvas' name="canvas" class="canvas" style="height:100%;border:1px solid black" resize></canvas>
+                <canvas id='canvas' name="canvas" class="canvas img-fluid" style="height:100%;border:1px solid black" resize></canvas>
                 <div class="d-flex">
                     <div class="flex-fill">
                         <label for="name">Bike Name</label>
@@ -223,6 +223,8 @@
                     <div class="flex-fill">
                         {% if data.owner and data.isLoggedIn %}
                         <button type="button" class="btn btn-primary" id="save">Save</button>
+                        {% elif not data.isLoggedIn %}
+                        <a href="/login" class="btn btn-primary" id="sample">Log In To Save</a>
                         {% endif %}
                     </div>
                 </div>

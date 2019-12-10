@@ -60,13 +60,6 @@ def load_user(user_id):
     return User.get(user_id)
 
 
-# use decorators to link the function to a url
-@app.route('/')
-def index():
-    data = {'isLoggedIn': current_user.is_authenticated}  # fake user
-    return render_template('index.html',
-                           data=data)
-
 def get_google_provider_cfg():
     return requests.get(app.config['GOOGLE_DISCOVERY_URL']).json()
 
@@ -150,7 +143,7 @@ def callback():
 @login_required
 def logout():
     logout_user()
-    return index()
+    return redirect(url_for('new_geometry'))
 
 
 @app.route('/home')
@@ -165,7 +158,7 @@ def home():
                            data=data)
 
 
-@app.route('/new', methods=['GET'])
+@app.route('/', methods=['GET'])
 def new_geometry():
     data = {
         'isLoggedIn': current_user.is_authenticated,
