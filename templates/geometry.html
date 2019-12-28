@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block head %}
+<script src="/static/base.js"></script>
 <script src="/static/calc.js"></script>
 {% endblock %}
 {% block content %}
@@ -19,137 +20,58 @@
                             <div id="collapseOne" class="collapse show" data-parent="#accordion">
                                 <div class="">
                                     <label class="control-label" for="stack">Stack</label>
-                                    <input required type="number" class="form-control form-control-sm" id="stack"
+                                    <input type="number" class="form-control form-control-sm" id="stack"
                                            {% if not data.owner %} disabled {% endif %}}
                                            name="stack" placeholder='520' value='{{data.data.bike.stack}}'>
                                 </div>
                                 <div class="">
                                     <label class="control-label" for="reach">Reach</label>
-                                    <input required type="number" class="form-control form-control-sm" id="reach"
+                                    <input type="number" class="form-control form-control-sm" id="reach"
                                            {% if not data.owner %} disabled {% endif %}}
                                            name="reach" placeholder='410' value='{{data.data.bike.reach}}'>
                                 </div>
                                 <div class="">
                                     <label class="control-label" for="st_length">Seat Tube Length</label>
-                                    <input required type="number" class="form-control form-control-sm" id="st_length"
+                                    <input type="number" class="form-control form-control-sm" id="st_length"
                                            {% if not data.owner %} disabled {% endif %}}
                                            name="st_length" placeholder='540' value='{{data.data.bike.st_length}}'>
                                 </div>
                                 <div class="">
                                     <label class="control-label" for="st_angle">Seat Tube Angle</label>
-                                    <input required type="number" class="form-control form-control-sm" id="st_angle"
+                                    <input type="number" class="form-control form-control-sm" id="st_angle"
                                            {% if not data.owner %} disabled {% endif %}}
                                            name="st_angle" placeholder='78' value='{{data.data.bike.st_angle}}'>
                                 </div>
                                 <div class="">
                                     <label class="control-label" for="ht_length">Head Tube Length</label>
-                                    <input required type="number" class="form-control form-control-sm" id="ht_length"
+                                    <input type="number" class="form-control form-control-sm" id="ht_length"
                                            {% if not data.owner %} disabled {% endif %}}
                                            name="ht_length" placeholder='120' value='{{data.data.bike.ht_length}}'>
                                 </div>
                                 <div class="">
                                     <label class="control-label" for="ht_angle">Head Tube Angle</label>
-                                    <input required type="number" class="form-control form-control-sm" id="ht_angle"
+                                    <input type="number" class="form-control form-control-sm" id="ht_angle"
                                            {% if not data.owner %} disabled {% endif %}}
                                            name="ht_angle" placeholder='72' value='{{data.data.bike.ht_angle}}'>
                                 </div>
                                 <div class="">
-                                    <label class="control-label" for="ft_center">Front Center</label>
-                                    <input required type="number" class="form-control form-control-sm" id="ft_center"
-                                           {% if not data.owner %} disabled {% endif %}}
-                                           name="ft_center" placeholder='600' value='{{data.data.bike.ft_center}}'>
-                                </div>
-                                <div class="">
-                                    <label class="control-label" for="wheelbase">Wheelbase</label>
-                                    <input required type="number" class="form-control form-control-sm" id="wheelbase"
-                                           {% if not data.owner %} disabled {% endif %}}
-                                           name="wheelbase" placeholder='1000' value='{{data.data.bike.wheelbase}}'>
-                                </div>
-                                <div class="">
-                                    <label class="control-label" for="bb_drop">BB Drop</label>
-                                    <input required type="number" class="form-control form-control-sm" id="bb_drop"
-                                           {% if not data.owner %} disabled {% endif %}}
-                                           name="bb_drop" placeholder='70' value='{{data.data.bike.bb_drop}}'>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h5>
-                                <div class="badge badge-primary" data-toggle="collapse" href="#collapseTwo">Fit
-                                    Geometry
-                                </div>
-                            </h5>
-                            <div id="collapseTwo" class="collapse" data-parent="#accordion">
-                                <div class="">
-                                    <label class="control-label" for="crank_length">Crank Arm Length</label>
-                                    <input required minlength="3" type="number" class="form-control form-control-sm"
-                                           {% if not data.owner %} disabled {% endif %}}
-                                           name="crank_length" placeholder='170' id="crank_length"
-                                           value='{{data.data.bike.crank_length}}'>
-                                </div>
-                                <div class="">
-                                    <label class="control-label" for="crank_angle">Crank Arm Angle</label>
-                                    <input required type="number" class="form-control form-control-sm" id="crank_angle"
-                                           {% if not data.owner %} disabled {% endif %}}
-                                           name="crank_angle" placeholder='0' value='{{data.data.bike.crank_angle}}'>
-                                </div>
-                                <div class="">
-                                    <label class="control-label" for="bb_rail">BB to Saddle Top</label>
-                                    <input required type="number" class="form-control form-control-sm" id="bb_rail"
-                                           {% if not data.owner %} disabled {% endif %}}
-                                           name="bb_rail" placeholder='670' value='{{data.data.bike.bb_rail}}'>
-                                </div>
-                                <div class="">
-                                    <label class="control-label" for="saddle_offset">Saddle Offset</label>
-                                    <input required type="number" class="form-control form-control-sm"
-                                           id="saddle_offset" {% if not data.owner %} disabled {% endif %}}
-                                           name="saddle_offset" placeholder='20'
-                                           value='{{data.data.bike.saddle_offset}}'>
-                                </div>
-                                <div class="">
                                     <label class="control-label" for="spacer_height">Spacer Height</label>
-                                    <input required type="number" class="form-control form-control-sm"
+                                    <input type="number" class="form-control form-control-sm"
                                            id="spacer_height" {% if not data.owner %} disabled {% endif %}}
                                            name="spacer_height" placeholder='30'
                                            value='{{data.data.bike.spacer_height}}'>
                                 </div>
                                 <div class="">
                                     <label class="control-label" for="stem_length">Stem Length</label>
-                                    <input required type="number" class="form-control form-control-sm" id="stem_length"
+                                    <input type="number" class="form-control form-control-sm" id="stem_length"
                                            {% if not data.owner %} disabled {% endif %}}
                                            name="stem_length" placeholder='100' value='{{data.data.bike.stem_length}}'>
                                 </div>
                                 <div class="">
                                     <label class="control-label" for="stem_angle">Stem Angle</label>
-                                    <input required type="number" class="form-control form-control-sm" id="stem_angle"
+                                    <input type="number" class="form-control form-control-sm" id="stem_angle"
                                            {% if not data.owner %} disabled {% endif %}}
                                            name="stem_angle" placeholder='-17' value='{{data.data.bike.stem_angle}}'>
-                                </div>
-                                <div class="">
-                                    <label class="control-label" for="pad_stack">Pad Stack Height</label>
-                                    <input required type="number" class="form-control form-control-sm" id="pad_stack"
-                                           {% if not data.owner %} disabled {% endif %}}
-                                           name="pad_stack" placeholder='30' value='{{data.data.bike.pad_stack}}'>
-                                </div>
-                                <div class="">
-                                    <label class="control-label" for="pad_offset">Pad Offset</label>
-                                    <input required type="number" class="form-control form-control-sm" id="pad_offset"
-                                           {% if not data.owner %} disabled {% endif %}}
-                                           name="pad_offset" placeholder='50' value='{{data.data.bike.pad_offset}}'>
-                                </div>
-                                <div class="">
-                                    <label class="control-label" for="ext_length">Extension Length</label>
-                                    <input required type="number" class="form-control form-control-sm" id="ext_length"
-                                           {% if not data.owner %} disabled {% endif %}}
-                                           name="ext_length" placeholder='350' value='{{data.data.bike.ext_length}}'>
-                                </div>
-                                <div class="">
-                                    <label class="control-label" for="ext_angle">Extension Angle</label>
-                                    <input required type="number" class="form-control form-control-sm" id="ext_angle"
-                                           {% if not data.owner %} disabled {% endif %}}
-                                           name="ext_angle" placeholder='10' value='{{data.data.bike.ext_angle}}'>
                                 </div>
                             </div>
                         </div>
@@ -157,46 +79,148 @@
                     <div class="card">
                         <div class="card-body">
                             <h5>
-                                <div class="badge badge-primary" data-toggle="collapse" href="#collapseThree">Body
+                                <div class="badge badge-primary" data-toggle="collapse" href="#collapseTwo">Drive
+                                    Geometry
+                                </div>
+                            </h5>
+                            <div id="collapseTwo" class="collapse" data-parent="#accordion">
+                                <div class="">
+                                    <label class="control-label" for="ft_center">Front Center</label>
+                                    <input type="number" class="form-control form-control-sm" id="ft_center"
+                                           {% if not data.owner %} disabled {% endif %}}
+                                           name="ft_center" placeholder='600' value='{{data.data.bike.ft_center}}'>
+                                </div>
+                                <div class="">
+                                    <label class="control-label" for="wheelbase">Wheelbase</label>
+                                    <input type="number" class="form-control form-control-sm" id="wheelbase"
+                                           {% if not data.owner %} disabled {% endif %}}
+                                           name="wheelbase" placeholder='1000' value='{{data.data.bike.wheelbase}}'>
+                                </div>
+                                <div class="">
+                                    <label class="control-label" for="bb_drop">BB Drop</label>
+                                    <input type="number" class="form-control form-control-sm" id="bb_drop"
+                                           {% if not data.owner %} disabled {% endif %}}
+                                           name="bb_drop" placeholder='70' value='{{data.data.bike.bb_drop}}'>
+                                </div>
+                                <div class="">
+                                    <label class="control-label" for="crank_length">Crank Arm Length</label>
+                                    <input type="number" class="form-control form-control-sm"
+                                           {% if not data.owner %} disabled {% endif %}}
+                                           name="crank_length" placeholder='170' id="crank_length"
+                                           value='{{data.data.bike.crank_length}}'>
+                                </div>
+                                <div class="">
+                                    <label class="control-label" for="crank_angle">Crank Arm Angle</label>
+                                    <input type="number" class="form-control form-control-sm" id="crank_angle"
+                                           {% if not data.owner %} disabled {% endif %}}
+                                           name="crank_angle" placeholder='0' value='{{data.data.bike.crank_angle}}'>
+                                </div>
+                                <div class="">
+                                    <label class="control-label" for="bb_rail">BB to Saddle Top</label>
+                                    <input type="number" class="form-control form-control-sm" id="bb_rail"
+                                           {% if not data.owner %} disabled {% endif %}}
+                                           name="bb_rail" placeholder='670' value='{{data.data.bike.bb_rail}}'>
+                                </div>
+                                <div class="">
+                                    <label class="control-label" for="saddle_offset">Saddle Offset</label>
+                                    <input type="number" class="form-control form-control-sm"
+                                           id="saddle_offset" {% if not data.owner %} disabled {% endif %}}
+                                           name="saddle_offset" placeholder='20'
+                                           value='{{data.data.bike.saddle_offset}}'>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>
+                                <div class="badge badge-primary" data-toggle="collapse" href="#collapseThree">Bar
                                     Geometry
                                 </div>
                             </h5>
                             <div id="collapseThree" class="collapse" data-parent="#accordion">
+                                <div class="tt">
+                                    <label class="control-label" for="pad_stack">Pad Stack Height</label>
+                                    <input type="number" class="form-control form-control-sm" id="pad_stack"
+                                           {% if not data.owner %} disabled {% endif %}}
+                                           name="pad_stack" placeholder='30' value='{{data.data.bike.pad_stack}}'>
+                                </div>
+                                <div class="tt">
+                                    <label class="control-label" for="pad_offset">Pad Offset</label>
+                                    <input type="number" class="form-control form-control-sm" id="pad_offset"
+                                           {% if not data.owner %} disabled {% endif %}}
+                                           name="pad_offset" placeholder='50' value='{{data.data.bike.pad_offset}}'>
+                                </div>
+                                <div class="tt">
+                                    <label class="control-label" for="ext_length">Extension Length</label>
+                                    <input type="number" class="form-control form-control-sm" id="ext_length"
+                                           {% if not data.owner %} disabled {% endif %}}
+                                           name="ext_length" placeholder='350' value='{{data.data.bike.ext_length}}'>
+                                </div>
+                                <div class="tt">
+                                    <label class="control-label" for="ext_angle">Extension Angle</label>
+                                    <input type="number" class="form-control form-control-sm" id="ext_angle"
+                                           {% if not data.owner %} disabled {% endif %}}
+                                           name="ext_angle" placeholder='10' value='{{data.data.bike.ext_angle}}'>
+                                </div>
+                                <div class="road">
+                                    <label class="control-label" for="hood_reach">Hood Reach</label>
+                                    <input type="number" class="form-control form-control-sm" id="hood_reach"
+                                           {% if not data.owner %} disabled {% endif %}}
+                                           name="hood_reach" placeholder='70' value='{{data.data.bike.hood_reach}}'>
+                                </div>
+                                <div class="road">
+                                    <label class="control-label" for="bar_drop">Bar Drop</label>
+                                    <input type="number" class="form-control form-control-sm" id="bar_drop"
+                                           {% if not data.owner %} disabled {% endif %}}
+                                           name="bar_drop" placeholder='120' value='{{data.data.bike.bar_drop}}'>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>
+                                <div class="badge badge-primary" data-toggle="collapse" href="#collapseFour">Body
+                                    Geometry
+                                </div>
+                            </h5>
+                            <div id="collapseFour" class="collapse" data-parent="#accordion">
                                 <div class="">
                                     <label for="ft_length">Cleat to Heel Length</label>
-                                    <input required type="number" class="form-control form-control-sm" id="ft_length"
+                                    <input type="number" class="form-control form-control-sm" id="ft_length"
                                            {% if not data.owner %} disabled {% endif %}}
-                                           name="ft_length" placeholder='100' value={{data.data.fit.ft_length}}>
+                                           name="ft_length" placeholder='100' value='{{data.data.fit.ft_length}}'>
                                 </div>
                                 <div class="">
                                     <label for="low_leglength">Ankle to Knee Length</label>
-                                    <input required type="number" class="form-control form-control-sm"
+                                    <input type="number" class="form-control form-control-sm"
                                            id="low_leglength" {% if not data.owner %} disabled {% endif %}}
-                                           name="low_leglength" placeholder='440' value={{data.data.fit.low_leglength}}>
+                                           name="low_leglength" placeholder='440' value='{{data.data.fit.low_leglength}}'>
                                 </div>
                                 <div class="">
                                     <label for="up_leglength">Knee to Hip Length</label>
-                                    <input required type="number" class="form-control form-control-sm" id="up_leglength"
+                                    <input type="number" class="form-control form-control-sm" id="up_leglength"
                                            {% if not data.owner %} disabled {% endif %}}
-                                           name="up_leglength" placeholder='460' value={{data.data.fit.up_leglength}}>
+                                           name="up_leglength" placeholder='460' value='{{data.data.fit.up_leglength}}'>
                                 </div>
                                 <div class="">
                                     <label for="torso_length">Hip to Shoulder Length</label>
-                                    <input required type="number" class="form-control form-control-sm" id="torso_length"
+                                    <input type="number" class="form-control form-control-sm" id="torso_length"
                                            {% if not data.owner %} disabled {% endif %}}
-                                           name="torso_length" placeholder='580' value={{data.data.fit.torso_length}}>
+                                           name="torso_length" placeholder='580' value='{{data.data.fit.torso_length}}'>
                                 </div>
                                 <div class="">
                                     <label for="up_armlength">Shoulder to Elbow Length</label>
-                                    <input required type="number" class="form-control form-control-sm" id="up_armlength"
+                                    <input type="number" class="form-control form-control-sm" id="up_armlength"
                                            {% if not data.owner %} disabled {% endif %}}
-                                           name="up_armlength" placeholder='350' value={{data.data.fit.up_armlength}}>
+                                           name="up_armlength" placeholder='350' value='{{data.data.fit.up_armlength}}'>
                                 </div>
                                 <div class="">
                                     <label for="low_armlength">Elbow to Palm Length</label>
-                                    <input required type="number" class="form-control form-control-sm"
+                                    <input type="number" class="form-control form-control-sm"
                                            id="low_armlength" {% if not data.owner %} disabled {% endif %}}
-                                           name="low_armlength" placeholder='350' value={{data.data.fit.low_armlength}}>
+                                           name="low_armlength" placeholder='350' value='{{data.data.fit.low_armlength}}'>
                                 </div>
                                 <input type="hidden" id="id" name="id" value={{data.id}}>
                             </div>
@@ -205,24 +229,33 @@
                 </div>
             </div>
             <div class="col" id="canvas_container" style="height:100%;border:0px solid blue">
-                <canvas id='canvas' name="canvas" class="canvas img-fluid" style="height:100%;border:1px solid black" resize></canvas>
+                <canvas id='canvas' name="canvas" class="canvas img-fluid" style="height:100%;border:1px solid black"
+                        resize></canvas>
                 <div class="d-flex">
                     <div class="flex-fill">
                         <label for="name">Bike Name</label>
                     </div>
                     <div class="flex-fill">
                         <input type="text" class="form-control" id="name" name="name" value='{{data.name}}'
-                        {% if not data.owner %} disabled {% endif %}}>
+                               {% if not data.owner %} disabled {% endif %}}>
                     </div>
                     <div class="flex-fill">
                         <label for="type">Type</label>
                         <select name="type" id="type" {% if not data.owner %} disabled {% endif %}}>
                             <option value="tt" {% if data.type=='tt' %} selected="selected" {% endif %}>TT</option>
+                            <option value="road" {% if data.type=='road' %} selected="selected" {% endif %}>Road
+                            </option>
                         </select>
                     </div>
                     <div class="flex-fill">
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" name="position" id="position">
+                            <label class="custom-control-label" for="position">Low/High</label>
+                        </div>
+                    </div>
+                    <div class="flex-fill">
                         {% if data.owner and data.isLoggedIn %}
-                        <button type="button" class="btn btn-primary" id="save">Save</button>
+                        <button type="submit" class="btn btn-primary" id="submit" name="submit">Save</button>
                         {% elif not data.isLoggedIn %}
                         <a href="/login" class="btn btn-primary" id="sample">Log In To Save</a>
                         {% endif %}

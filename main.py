@@ -54,6 +54,12 @@ db.init_app(pm)
 # OAuth2 client setup
 client = WebApplicationClient(app.config['GOOGLE_CLIENT_ID'])
 
+@app.before_request
+def before_request():
+    if request.url.startswith('http://'):
+        url = request.url.replace('http://', 'https://', 1)
+        code = 301
+        return redirect(url, code=code)
 
 @login_manager.user_loader
 def load_user(user_id):
