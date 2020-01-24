@@ -57,6 +57,14 @@ def get_bikes(id):
     bikes = get_db().db.bikes.find({"user": id})
     return bikes
 
+def get_saved_bike(id):
+    bike = get_db().db.saved_bikes.find_one({"id": int(id)}, {"_id":0})
+    return bike
+
+def get_saved_bikes():
+    bikes = get_db().db.saved_bikes.find({}, {"id":1, "_id":0, "name":1, "type":1})
+    return bikes
+
 def create_bike(data):
     resp = get_db().db.bikes.insert_one(data)
     data.pop('_id')

@@ -9,6 +9,36 @@ var textStyle = {
 };
 
 $(document).ready(function() {
+            $.get({
+                url: '/bikes'
+            }).done(function(data, status){
+                for (i = 0; i < data.length; i++) {
+                    var row = data[i]
+                    if(row.type=='tt'){
+                        $('#tt_bikes > div').append('<a class="dropdown-item" value='+ row.id +'>' + row.name +'</a>')
+                    }else{
+                        $('#road_bikes > div').append('<a class="dropdown-item" value='+ row.id +'>' + row.name +'</a>')
+                    }
+                }
+                $('a.dropdown-item').on('click', function(event) {
+                     $.get("/bike/" + event.target.attributes['value'].value, function(data, status){
+                        $('#stack').val(data.geometry.stack)
+                        $('#reach').val(data.geometry.reach)
+                        $('#st_length').val(data.geometry.st_length)
+                        $('#st_angle').val(data.geometry.st_angle)
+                        $('#ht_length').val(data.geometry.ht_length)
+                        $('#ht_angle').val(data.geometry.ht_angle)
+                        $('#ft_center').val(data.geometry.ft_center)
+                        $('#wheelbase').val(data.geometry.wheelbase)
+                        $('#bb_drop').val(data.geometry.bb_drop)
+                        $('#type').val(data.type)
+                        updateBars()
+                        drawScene()
+                      });
+                })
+                $('#tt_bikes').show()
+                $('#road_bikes').show()
+            })
     $('#bike_form').submit(function(e) {
         e.preventDefault();
         if($('#bike_form').valid()){
@@ -54,7 +84,8 @@ $(document).ready(function() {
                             up_leglength: $('#up_leglength').val(),
                             torso_length: $('#torso_length').val(),
                             up_armlength: $('#up_armlength').val(),
-                            low_armlength: $('#low_armlength').val()
+                            low_armlength: $('#low_armlength').val(),
+                            elbow_angle: $('#elbow_angle').val()
                         }
                     }
                  })
@@ -267,25 +298,23 @@ function drawRider() {
     if($('#type').val() == 'tt' && $('#position').is(':checked') == false){
         var result = findTriangle(padPoint, postPoint, parseFloat($('#up_armlength').val()), parseFloat($('#torso_length').val()));
     }else if($('#type').val() == 'tt' && $('#position').is(':checked') == true){
-        var result = findTriangle(stemEnd, postPoint, parseFloat($('#up_armlength').val()) + parseFloat($('#low_armlength').val()),
-            parseFloat($('#torso_length').val()));
+        var arm_length = findLength(parseFloat($('#up_armlength').val()), parseFloat($('#low_armlength').val()),  parseFloat($('#elbow_angle').val()));
+        var result = findTriangle(stemEnd, postPoint, arm_length, parseFloat($('#torso_length').val()));
     }else if($('#type').val() == 'road' && $('#position').is(':checked') == false){//drops
         var drop = parseFloat($('#bar_drop').val());
         var dropPoint = new paper.Point(stemEnd.x, stemEnd.y + drop);
-        var result = findTriangle(dropPoint, postPoint, parseFloat($('#up_armlength').val()) + parseFloat($('#low_armlength').val()),
+        var arm_length = findLength(parseFloat($('#up_armlength').val()), parseFloat($('#low_armlength').val()),  parseFloat($('#elbow_angle').val()));
+        var result = findTriangle(dropPoint, postPoint, arm_length,
             parseFloat($('#torso_length').val()));
 
     }else if($('#type').val() == 'road' && $('#position').is(':checked') == true){
         var hoodPoint = new paper.Point(stemEnd.x + parseFloat($('#hood_reach').val()), stemEnd.y);
-        var result = findTriangle(hoodPoint, postPoint, parseFloat($('#up_armlength').val()) + parseFloat($('#low_armlength').val()),
+        var arm_length = findLength(parseFloat($('#up_armlength').val()), parseFloat($('#low_armlength').val()),  parseFloat($('#elbow_angle').val()));
+        var result = findTriangle(hoodPoint, postPoint, arm_length,
             parseFloat($('#torso_length').val()));
     }
     var shoulderPoint = result.midPoint;
     var shoulderAngle = result.midAngle;
-
-    var shoulderAngleText = new paper.PointText(shoulderPoint.x - 100, shoulderPoint.y + 100);
-    shoulderAngleText.content = round(result.midAngle) + ' ' + String.fromCharCode(176);
-    shoulderAngleText.style = textStyle;
 
     rider.add(shoulderPoint);
     if($('#type').val() == 'tt' && $('#position').is(':checked') == false){
@@ -296,33 +325,37 @@ function drawRider() {
         hand.style = pointStyle;
         var elbowPoint = initPoint(parseFloat($('#up_armlength').val()), padPoint.subtract(shoulderPoint).angle, shoulderPoint.x, shoulderPoint.y);
     }else if($('#type').val() == 'tt' && $('#position').is(':checked') == true){
-        rider.add(stemEnd);
         var hand = new paper.Path.Circle(stemEnd, 10);
         var handPoint = stemEnd;
         hand.style = pointStyle;
-        var elbowPoint = initPoint(parseFloat($('#up_armlength').val()), handPoint.subtract(shoulderPoint).angle, shoulderPoint.x, shoulderPoint.y);
+        var result = findTriangle(shoulderPoint, handPoint, parseFloat($('#up_armlength').val()), parseFloat($('#low_armlength').val()));
+        var elbowPoint = result.midPoint;
+        rider.add(elbowPoint);
+        rider.add(stemEnd);
    }else if($('#type').val() == 'road' && $('#position').is(':checked') == false){//drops
         var drop = parseFloat($('#bar_drop').val());
         var dropPoint = new paper.Point(stemEnd.x, stemEnd.y + drop);
         var handPoint = dropPoint;
-        rider.add(dropPoint);
         var hand = new paper.Path.Circle(dropPoint, 10);
         hand.style = pointStyle;
-        var elbowPoint = initPoint(parseFloat($('#up_armlength').val()), handPoint.subtract(shoulderPoint).angle, shoulderPoint.x, shoulderPoint.y);
+        var result = findTriangle(shoulderPoint, handPoint, parseFloat($('#up_armlength').val()), parseFloat($('#low_armlength').val()));
+        var elbowPoint = result.midPoint;
+        rider.add(elbowPoint);
+        rider.add(dropPoint);
     }else if($('#type').val() == 'road' && $('#position').is(':checked') == true){//hoods
         var hoodPoint = new paper.Point(stemEnd.x + parseFloat($('#hood_reach').val()), stemEnd.y);
         var handPoint = hoodPoint;
-        rider.add(hoodPoint);
         var hand = new paper.Path.Circle(hoodPoint, 10);
         hand.style = pointStyle;
-        var elbowPoint = initPoint(parseFloat($('#up_armlength').val()), handPoint.subtract(shoulderPoint).angle, shoulderPoint.x, shoulderPoint.y);
+        var result = findTriangle(shoulderPoint, handPoint, parseFloat($('#up_armlength').val()), parseFloat($('#low_armlength').val()));
+        var elbowPoint = result.midPoint;
+        rider.add(elbowPoint);
+        rider.add(hoodPoint);
     }
-    $('#shAngle').val(round(shoulderAngle));
     var shoulder = new paper.Path.Circle(shoulderPoint, 20);
     shoulder.style = pointStyle;
     var elbow = new paper.Path.Circle(elbowPoint, 10);
     elbow.style = pointStyle;
-    var elbow = drawLineFromTo(shoulderPoint, elbowPoint, bodyStyle);
 
     var neckPoint = initPoint(150, shoulderPoint.subtract(postPoint).angle, shoulderPoint.x, shoulderPoint.y);
     var neckLine = new paper.Path.Line(shoulderPoint, neckPoint);
@@ -341,4 +374,10 @@ function drawRider() {
     var backAngle = new paper.PointText(postPoint.x - 100, postPoint.y - 100);
     backAngle.content = round(hipToShoulder.angle * -1) + ' ' + String.fromCharCode(176);
     backAngle.style = textStyle;
+
+    var result = findTriangle(postPoint, elbowPoint, parseFloat($('#up_armlength').val()), parseFloat($('#torso_length').val()));
+    var shoulderAngleText = new paper.PointText(shoulderPoint.x - 100, shoulderPoint.y + 100);
+    shoulderAngleText.content = round(result.midAngle) + ' ' + String.fromCharCode(176);
+    shoulderAngleText.style = textStyle;
+
 }

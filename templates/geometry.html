@@ -4,7 +4,6 @@
 <script src="/static/calc.js"></script>
 {% endblock %}
 {% block content %}
-<!--{{ data }}-->
 <div class="container-fluid" style="height:100%;border:0px solid black">
     <form id="bike_form">
         <div class="row h-80" style="height:80%;border:0px solid green">
@@ -139,6 +138,12 @@
                                 </div>
                             </h5>
                             <div id="collapseThree" class="collapse" data-parent="#accordion">
+                                <div class="both">
+                                    <label class="control-label" for="hood_reach">Elbow Angle</label>
+                                    <input type="number" class="form-control form-control-sm" id="elbow_angle"
+                                           {% if not data.owner %} disabled {% endif %}
+                                           name="elbow_angle" placeholder='30' value='{{data.data.bike.elbow_angle}}'>
+                                </div>
                                 <div class="tt">
                                     <label class="control-label" for="pad_stack">Pad Stack Height</label>
                                     <input type="number" class="form-control form-control-sm" id="pad_stack"
@@ -160,7 +165,7 @@
                                 <div class="tt">
                                     <label class="control-label" for="ext_angle">Extension Angle</label>
                                     <input type="number" class="form-control form-control-sm" id="ext_angle"
-                                           {% if not data.owner %} disabled {% endif %}}
+                                           {% if not data.owner %} disabled {% endif %}
                                            name="ext_angle" placeholder='10' value='{{data.data.bike.ext_angle}}'>
                                 </div>
                                 <div class="road">
@@ -187,7 +192,7 @@
                             </h5>
                             <div id="collapseFour" class="collapse" data-parent="#accordion">
                                 <div class="">
-                                    <label for="ft_length">Cleat to Heel Length</label>
+                                    <label for="ft_length">Spindle to Heel Length</label>
                                     <input type="number" class="form-control form-control-sm" id="ft_length"
                                            {% if not data.owner %} disabled {% endif %}}
                                            name="ft_length" placeholder='100' value='{{data.data.fit.ft_length}}'>

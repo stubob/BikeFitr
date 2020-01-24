@@ -254,6 +254,19 @@ def save_body():
         data['data'] = req_data
     return jsonify(data)
 
+@app.route('/bikes',  methods=['GET'])
+def get_bikes():
+    data = []
+    bikes = db.get_saved_bikes()
+    for bike in bikes:
+        data.append(bike)
+    return jsonify(data)
+
+@app.route('/bike/<id>',  methods=['GET'])
+def get_bike(id):
+    data = {}
+    bike = db.get_saved_bike(id)
+    return jsonify(bike)
 
 def random_generator():
     return ''.join([random.choice(string.ascii_letters + string.digits) for n in range(12)])

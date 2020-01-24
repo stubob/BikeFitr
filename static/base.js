@@ -2,9 +2,15 @@ function updateBars(){
     if($('#type').val() == 'tt'){
         $('.tt').show();
         $('.road').hide();
+        if($('#position').is(':checked') == false){
+            $('.both').hide();
+        }else{
+            $('.both').show();
+        }
     }else if($('#type').val() == 'road'){
         $('.tt').hide();
         $('.road').show();
+        $('.both').show();
     }
 }
 function recenter(){
@@ -50,12 +56,25 @@ function solveAngle(a, b, c) {
         throw "No solution";
 }
 
+function findLength(a, b, angle) {
+    var temp = (a * a + b * b - (2 * a * b * Math.cos(degToRad(angle))));
+    if (0 <= temp)
+        return Math.sqrt(temp);
+    else
+        throw "No solution";
+}
+
+
 function round(angle) {
     return Math.round(angle * 10) / 10;
 }
 
 function radToDeg(x) {
     return x / Math.PI * 180;
+}
+
+function degToRad(x){
+    return Math.PI * x / 180;
 }
 
 function getVal(sel){
