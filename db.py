@@ -62,7 +62,7 @@ def get_saved_bike(id):
     return bike
 
 def get_saved_bikes():
-    bikes = get_db().db.saved_bikes.find({}, {"id":1, "_id":0, "name":1, "type":1})
+    bikes = get_db().db.saved_bikes.find({}, {"id":1, "_id":0, "name":1, "type":1}).sort("name")
     return bikes
 
 def create_bike(data):

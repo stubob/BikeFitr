@@ -9,36 +9,63 @@ var textStyle = {
 };
 
 $(document).ready(function() {
-            $.get({
-                url: '/bikes'
-            }).done(function(data, status){
-                for (i = 0; i < data.length; i++) {
-                    var row = data[i]
-                    if(row.type=='tt'){
-                        $('#tt_bikes > div').append('<a class="dropdown-item" value='+ row.id +'>' + row.name +'</a>')
-                    }else{
-                        $('#road_bikes > div').append('<a class="dropdown-item" value='+ row.id +'>' + row.name +'</a>')
-                    }
-                }
-                $('a.dropdown-item').on('click', function(event) {
-                     $.get("/bike/" + event.target.attributes['value'].value, function(data, status){
-                        $('#stack').val(data.geometry.stack)
-                        $('#reach').val(data.geometry.reach)
-                        $('#st_length').val(data.geometry.st_length)
-                        $('#st_angle').val(data.geometry.st_angle)
-                        $('#ht_length').val(data.geometry.ht_length)
-                        $('#ht_angle').val(data.geometry.ht_angle)
-                        $('#ft_center').val(data.geometry.ft_center)
-                        $('#wheelbase').val(data.geometry.wheelbase)
-                        $('#bb_drop').val(data.geometry.bb_drop)
-                        $('#type').val(data.type)
-                        updateBars()
-                        drawScene()
-                      });
-                })
-                $('#tt_bikes').show()
-                $('#road_bikes').show()
-            })
+    $.get('/bikes', function(data, status){
+        $( "#bike_select" ).autocomplete({
+            source: data,
+            change: function( event, ui ) {
+            //            alert(ui)
+            },
+            select: function( event, ui ) {
+                event.preventDefault();
+                 $.get("/bike/" + ui.item.value, function(data, status){
+                    $('#stack').val(data.geometry.stack)
+                    $('#reach').val(data.geometry.reach)
+                    $('#st_length').val(data.geometry.st_length)
+                    $('#st_angle').val(data.geometry.st_angle)
+                    $('#ht_length').val(data.geometry.ht_length)
+                    $('#ht_angle').val(data.geometry.ht_angle)
+                    $('#ft_center').val(data.geometry.ft_center)
+                    $('#wheelbase').val(data.geometry.wheelbase)
+                    $('#bb_drop').val(data.geometry.bb_drop)
+                    $('#type').val(data.type)
+                    updateBars()
+                    drawScene()
+                  });
+              $("#bike_select").val(ui.item.label);
+            }
+        });
+    });
+    $('#bike_select_form').show();
+//            $.get({
+//                url: '/bikes'
+//            }).done(function(data, status){
+//                for (i = 0; i < data.length; i++) {
+//                    var row = data[i]
+//                    if(row.type=='tt'){
+//                        $('#tt_bikes > div').append('<a class="dropdown-item" value='+ row.id +'>' + row.name +'</a>')
+//                    }else{
+//                        $('#road_bikes > div').append('<a class="dropdown-item" value='+ row.id +'>' + row.name +'</a>')
+//                    }
+//                }
+//                $('a.dropdown-item').on('click', function(event) {
+//                     $.get("/bike/" + event.target.attributes['value'].value, function(data, status){
+//                        $('#stack').val(data.geometry.stack)
+//                        $('#reach').val(data.geometry.reach)
+//                        $('#st_length').val(data.geometry.st_length)
+//                        $('#st_angle').val(data.geometry.st_angle)
+//                        $('#ht_length').val(data.geometry.ht_length)
+//                        $('#ht_angle').val(data.geometry.ht_angle)
+//                        $('#ft_center').val(data.geometry.ft_center)
+//                        $('#wheelbase').val(data.geometry.wheelbase)
+//                        $('#bb_drop').val(data.geometry.bb_drop)
+//                        $('#type').val(data.type)
+//                        updateBars()
+//                        drawScene()
+//                      });
+//                })
+//                $('#tt_bikes').show()
+//                $('#road_bikes').show()
+//            })
     $('#bike_form').submit(function(e) {
         e.preventDefault();
         if($('#bike_form').valid()){

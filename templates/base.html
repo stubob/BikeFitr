@@ -35,16 +35,12 @@
         <li class="nav-item active">
             <a class="navbar-brand" href="/">BikeFitr</a>
         </li>
-<li class="nav-item dropdown" id="tt_bikes" style="display:none">
-    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Tri Bikes</a>
-    <div class="dropdown-menu">
-    </div>
-  </li>
-<li class="nav-item dropdown" id="road_bikes" style="display:none">
-    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Road Bikes</a>
-    <div class="dropdown-menu">
-    </div>
-  </li>    </ul>
+          <form class="form-inline" id="bike_select_form">
+        <span class="navbar-text">Saved Bikes</span>
+    <input id="bike_select">
+          </form>
+
+    </ul>
     {% if data.isLoggedIn %}
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">

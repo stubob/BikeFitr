@@ -259,7 +259,8 @@ def get_bikes():
     data = []
     bikes = db.get_saved_bikes()
     for bike in bikes:
-        data.append(bike)
+        row = {'label': bike['name'], 'value': bike['id']}
+        data.append(row)
     return jsonify(data)
 
 @app.route('/bike/<id>',  methods=['GET'])
