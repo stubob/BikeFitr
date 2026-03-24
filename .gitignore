@@ -131,3 +131,4 @@ dmypy.json
 /certificate.crt
 /privateKey.key
 /app.yaml
+/generated/prisma
