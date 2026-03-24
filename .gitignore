@@ -132,3 +132,4 @@ dmypy.json
 /privateKey.key
 /app.yaml
 /generated/prisma
+/node_modules/
